@@ -100,11 +100,64 @@ To view our floorplan in Magic we need to provide three files as input:
 - Inputs - PDKs, DRC & LVS rules, SPICE models, library & user-defined specs.
 - Design Steps - Software GUNA used for characterization.
 - Outputs - Outputs are CDL, GDSII, LEF, extracted Spice netlist (.cir), & provide Timing (delays, slews), Power, Noise, function informataion in .lib format
+==> .lib information is important for PD analysis.
+          
+## Day 3
 
+          
+          
+### Plotting spice w/f:
+To plot the output waveform of the spice deck we will use ngspice. The steps to run the simulation on ngpice are as follows:
 
+1. Source the .cir spice deck file
+2. Run the spice file by: run
+3. Run: setplot → allows you to view any plots possible from the simulations specified in the spice deck
+4. Select the simulation desired by entering the simulation name in the terminal
+5. Run: display to see nodes available for plotting
+6. Run: plot  vs  to obtain output waveform       
+          
+          
+Robustness of Inverter: Switching threshold (Vm) i.e. when Vin = Vout 
+          ==>calculated using spice
+          
+### Inverter cell fabrication:
+  Using 16 Mask process includes following:
+  1. Substrate selection
+  2. Creating Active reagions
+  3. Nwell / Pwell creation
+  4. Source and Drain formation
+  5. Contacts & local interconnect Creation using SiO2 for isolation & TitaniumNitrate for connects.
+  6. Higher metal layer connects using aluminium
 
+### Layout View of above Inverter Cell in Magic Software
+   1. Gitclone files from https://github.com/nickson-jose/vsdstdcelldesign
+   2. Load them in Magic to view:
+    magic -T sky130A.tech sky130A_inverter.mag &
           
-          
-          
-          
-          
+    <image of Inverter>
+#### Viewing metal connects in magic:
+      Command: hover & press "S" multiple times.
+      <Image of connect>
+
+### DRC Errors
+        
+        
+### Extraction with Magic:
+  Parasitics can be extracted using magic for the standard cell for spice simulation using following:
+        1. "extract all" - generates *.ext file
+        2. This needs to be converted to spice file using 
+          "ext2spice cthresh 0 rthresh 0"
+          "ext2spice"
+        <image of extract.spice>
+ 
+  Above information is used to write wrapper for spice simulation
+          <image of spice wrapper>
+            
+### Spice simulation of Inverter
+     Commands for same are shared above while documenting traing (start of Day3)
+     Snapshots below:
+     <image of ngspice>
+     <image of simulation w/f>
+       
+## Day 4
+       
