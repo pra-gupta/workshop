@@ -249,4 +249,39 @@ track.info
 **Fig11a: correctness of port location as per track.info**
 
  ### LEF Generation in Magic
+![image](https://user-images.githubusercontent.com/107258443/175551967-cf05c0e3-352c-4aee-a3f6-7460490266b1.png)
+**Fig11b: Ouptput of "lef write" from magic**
+
+![image](https://user-images.githubusercontent.com/107258443/175552639-81406624-a767-4742-85c4-a6a9889d662b.png)
+**Fig11c: sky130_pratinv.lef**
+  
+###  Including Custom Cells in OpenLANE
+In order to include the new cells in OpenLANE we need to do some initial configuration:
+
+1. Fully characterize new cell with GUNA for specified corners (already provided for this lab)
+2. Include cell level liberty file in top level liberty file
+3. Reconfigure synthesis switches in design's config.tcl:
+_  set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]_
+**Note: **This step will also include any extra LEF files generated for the custom standard cell(s)
+
+![image](https://user-images.githubusercontent.com/107258443/175564088-55d19677-97cb-4759-9f68-6f70cd0241f8.png)
+**Fig11d: modified config.tcl**
+  
+4. Overwrite previous run to include new configuration switches.
+  _prep -design picorv32a -tag modified -overwrite_
+
+  ![image](https://user-images.githubusercontent.com/107258443/175564387-569a4412-e003-40cd-b3dd-0c5473b35f1e.png)
+**Fig11e: prep design complete**
+  
+5. Add additional statements to include extra cell LEFs:
+_      set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+      add_lefs -src $lefs_
+![image](https://user-images.githubusercontent.com/107258443/175565042-dff6807b-1312-4ba6-9337-bf243113e7b9.png)
+**Fig11f: Merge lef**
+  
+6. Check synthesis reports to ensure cell has been integrated correctly
+![image](https://user-images.githubusercontent.com/107258443/175565830-d7c0ffb0-e6ab-44ce-98f4-dc9d9461ccc7.png)
+ **Fig11g: Synthesis took modified "pratinv" cell** 
+  
+### Fixing Slack Violations
   
