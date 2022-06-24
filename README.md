@@ -284,4 +284,41 @@ _      set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
  **Fig11g: Synthesis took modified "pratinv" cell** 
   
 ### Fixing Slack Violations
+
+For the design to be complete, the worst negative slack needs to be above or equal to 0. If the slack is outside of this range we can do one of multiple things:
+  1. Review our synthesis strategy in OpenLANE
+  2. Enable cell buffering
+  3. Perform manual cell replacement on our WNS path with the OpenSTA tool
+  4. Optimize the fanout value with OpenLANE tool 
+
+  Following iterative steps are done for same:
+  1. report_check
+  2. Change Fanout - for higher slews SYNTH_MAX_FANOUT
+  3. report_check
+  4. Replace cells (if cap is high ). This will take hit on area.
+  5. report_check
   
+### Clock Tree Synthesis
+  
+  ![image](https://user-images.githubusercontent.com/107258443/175641966-24db190a-7393-40b8-b3ac-d52bdefab688.png)
+Fig12: run_cts
+  ![image](https://user-images.githubusercontent.com/107258443/175643629-963cb532-9f37-4736-b501-c580a3d5da91.png)
+  Fig12a: CTS done
+
+  ![image](https://user-images.githubusercontent.com/107258443/175644428-1399bd33-9ef2-4473-8f07-ef6ec3efac8c.png)
+Fig12a: New CTS netlsit avialable
+  
+  ![image](https://user-images.githubusercontent.com/107258443/175648244-4cb911a6-b689-4332-a385-5890ca739a52.png)
+Fig12b: hold slack after cts
+  
+  ![image](https://user-images.githubusercontent.com/107258443/175648412-0d9a7c7d-6235-4ffe-a5b2-161e6ae866fb.png)
+Fig12c: setup slack after cts
+
+  Typical 
+  ![image](https://user-images.githubusercontent.com/107258443/175649552-17616bd6-cba0-4dc2-8eab-0833e22ec660.png)
+Fig12d: hold violated - Typical
+  
+  ![image](https://user-images.githubusercontent.com/107258443/175649740-76ad42f2-2334-4899-a738-2284bd2105a6.png)
+Fig12d: hold MET - Typical
+  
+## Day5
