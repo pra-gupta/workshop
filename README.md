@@ -188,24 +188,65 @@ Robustness of Inverter: Switching threshold (Vm) i.e. when Vin = Vout
 **Fig09a: Gate connection of nmos & pmos**
   
 ### DRC Errors
-        
-        
+  DRC errors in magic will be highlighted with white dotted lines:
+  Steps to create DRC error: 
+  1. remove some metal area to see DRC errors.
+  2. Select area & press "d"
+
+![image](https://user-images.githubusercontent.com/107258443/175520227-c5595c01-1168-4312-ac41-17b97207d8c1.png)
+**Fig09b: DRC Check highlighted in Magic**
+
+![image](https://user-images.githubusercontent.com/107258443/175522815-2977426e-0e14-4d9c-a10c-93a0ee3349fc.png)
+**Fig09c: DRC Error details in Magic's tkcon shell**
+  
 ### Extraction with Magic:
   Parasitics can be extracted using magic for the standard cell for spice simulation using following:
         1. "extract all" - generates *.ext file
         2. This needs to be converted to spice file using 
           "ext2spice cthresh 0 rthresh 0"
           "ext2spice"
-        <image of extract.spice>
+![image](https://user-images.githubusercontent.com/107258443/175523562-3b9e2001-587c-4c65-9349-f7f8ce081a85.png)
+**Fig09d: Commands to extract spice file from magic**
+  
+![image](https://user-images.githubusercontent.com/107258443/175523970-e2a9c4df-16a7-4ec0-b5e0-fda18e3dc29e.png)
+**Fig09e: Extracted spice file from magic**
+  
  
-  Above information is used to write wrapper for spice simulation
           <image of spice wrapper>
             
 ### Spice simulation of Inverter
-     Commands for same are shared above while documenting traing (start of Day3)
-     Snapshots below:
-     <image of ngspice>
-     <image of simulation w/f>
-       
+Above information is used to write wrapper for spice simulation
+Commands for same are shared above while documenting traing (start of Day3)
+            
+**Note:** In spice, X subscript is used when we are invoking existing subckt (i.e., if we have .subckt nshort_model.0 ).
+Since here we are invoking nmos and pmos models directly, we need to change X0 to M0 and X1 to M1.
+            
+**Snapshots below:**
+![image](https://user-images.githubusercontent.com/107258443/175542294-effbb3f8-f0ef-4e09-b9fa-8e63c1d5a958.png)
+**Fig10: Modified Spice wrapper for simulation**
+            
+![image](https://user-images.githubusercontent.com/107258443/175543610-7aba2967-2a68-49c0-81d6-ff818c1d1e53.png)
+**Fig10a: Spice simulation complete (transient)**
+
+![image](https://user-images.githubusercontent.com/107258443/175544420-f46cc12f-82a2-42fe-b83c-39e8832229e0.png)
+**Fig10b: Spice simulation Waveform (transient)**
+
+![image](https://user-images.githubusercontent.com/107258443/175547695-4548db90-5032-43e9-8cae-ff38767ef108.png)
+**Fig10b: Spice simulation: Output rise transition calculation**
+            
 ## Day 4
-       
+### Generate Layout info from Magic
+   Magic can extract layout info in LEF format for PNR Tools. FOllowign rules need to be taken care:
+       1. I/P & O/P port must lie on the intersection of vertical & horizontal tracks
+       2.Width of std cell should odd multiple of track pitch & Height should be odd multiple of track vertical pitch
+
+track.info 
+<metal layer> <direction> <offset> <pitch>
+![image](https://user-images.githubusercontent.com/107258443/175540934-73a5571d-bc66-43ea-96eb-2a90cb7c7c17.png)
+**Fig11: tracks.info for sky130_fd_sc_hd**
+
+![image](https://user-images.githubusercontent.com/107258443/175549109-fdd4dd0a-2cc7-475d-bdf1-50a97ef8a767.png)
+**Fig11a: correctness of port location as per track.info**
+
+ ### LEF Generation in Magic
+  
