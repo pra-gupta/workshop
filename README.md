@@ -13,7 +13,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 
 ## WorkFlow:
 ![image](https://user-images.githubusercontent.com/107258443/175244818-882577f4-60ac-4698-bddd-8aa0074ea9cf.png)
-fig01: Workflow
+**Fig01: Workflow**
 
 ## Stages
 OpenLANE flow consists of several stages. 
@@ -43,31 +43,31 @@ OpenLANE flow consists of several stages.
 ### Skywater PDK files:
 1. Sky130A – The open-source compatible PDK files which are used in this project
 ![image](https://user-images.githubusercontent.com/107258443/175495536-5cb700b5-2039-48d7-a26e-b37adf9e0cb0.png)
-fig02: PDKs used
+**Fig02: PDKs used**
 
 ### Designs Available
 We are going to use picorv32a
 ![image](https://user-images.githubusercontent.com/107258443/175495764-b4a0e916-ae98-4bf3-b54c-cd152ec1ce4a.png)
-fig03: Design for analysis
+**Fig03: Design for analysis**
   
 ### Docker & OpenLane
   1. run "docker" command to create required environment.
   2. execute ./flow.tcl -interactive to run the OpenLANE flow in interactive mode.
   3. import opemnlane package using "package require openlane" 
-  4. ![image](https://user-images.githubusercontent.com/107258443/175498800-09f00eef-4b79-425b-aa56-c4e7252c4318.png)
-fig04: Commands: docker & flow.tcl
+![image](https://user-images.githubusercontent.com/107258443/175498800-09f00eef-4b79-425b-aa56-c4e7252c4318.png)
+**Fig04: Commands: docker & flow.tcl**
 
 ### Prepare design Stage
     Command: "prep -design picorv32a"
     This creates requried directory structure. User must edit config.tcl for desired settings for different flows as per need of design & technology.
 ![image](https://user-images.githubusercontent.com/107258443/175499097-42603857-4e09-4977-822e-fc91e1886b73.png)
-fig05: Prep stage
+**Fig05: Prep stage**
 
 ![image](https://user-images.githubusercontent.com/107258443/175499497-125382d9-b025-4c8e-b7db-95cbf87e072e.png)
-fig05a: Directory structure after prep stage
+**Fig05a: Directory structure after prep stage**
 
 ![image](https://user-images.githubusercontent.com/107258443/175499672-38ba6db5-4838-4630-81b1-d13ded25a3ba.png)
-fig05b: Directory structure after prep stage
+**Fig05b: Directory structure after prep stage**
 
 
 ### Synthesis
@@ -76,25 +76,40 @@ fig05b: Directory structure after prep stage
       1. 1-yosys_pre.stats shows different componenets count like reg, mem, combo counts per functionality.
       2. 1-sta.rpt has timing related data - transition time, clock instances etc.
 ![image](https://user-images.githubusercontent.com/107258443/175500991-bbc7bf3b-75c6-40df-be73-d07576b85c28.png)
-fig06: Command: run_synthesis
+**Fig06: Command: run_synthesis**
+
+![image](https://user-images.githubusercontent.com/107258443/175511831-e576cdea-36f1-4c7c-81bc-9d3ea18880a6.png)
+**Fig06a: Synthesized netlist generated**
+
+![image](https://user-images.githubusercontent.com/107258443/175510707-9674bd67-817d-492a-9225-9d9d836f441e.png)
+**Fig06b: Reports generated after "run_synthesis" step**
+
+![image](https://user-images.githubusercontent.com/107258443/175509117-ad5ff683-e8f1-4e99-8cdf-8c93193d94a1.png)
+**Fig06c: Reports: Cells used (based on functionality)**
 
 ![image](https://user-images.githubusercontent.com/107258443/175501519-463bc031-a6de-4980-9f82-ed75c6f496b0.png)
-fig06a: Reports: Cells used
+**Fig06d: Reports: More detailed Cells distribution**
 
-
+![image](https://user-images.githubusercontent.com/107258443/175510097-0dc1b6ec-d53a-4c1b-b5aa-968dab114724.png)
+**Fig06e: Timing report from openSTA**
 
 ## Day2
 ### Floorplanning
-      Needs to set folllwoing:
+   Needs to set folllwoing varialbles in config.tcl:
       1. Die/Core Area
       2. Core Utilization
       3. Aspect Ratio
       4. Macros Placement
       5. Placing input and output pins
-      
-      command: "run_floorplan"
-      < command image>
-      <def image>
+
+![image](https://user-images.githubusercontent.com/107258443/175511257-23741a33-ded9-4d53-9d8c-ef1d22ec4e6f.png)
+**Fig07: Command: "run_floorplan"**
+
+![image](https://user-images.githubusercontent.com/107258443/175512279-7f47033c-0a6b-40c8-8923-9001c5183635.png)
+**Fig07a: Floorplan DEF**
+
+![image](https://user-images.githubusercontent.com/107258443/175512477-b0c85b91-c359-4669-9df1-abeac9ed16a2.png)
+**Fig07b: Floorplan DEF**
  
 #### Viewing Floorplan in Magic
 To view our floorplan in Magic we need to provide three files as input:
@@ -102,29 +117,41 @@ To view our floorplan in Magic we need to provide three files as input:
         2. Def file (generated from floorplan step)
         3. Merged LEF file (generated during design prep stage)
       Command: magic -T <tech file> lef read <lef file> def read <def file>
-        <Magic image>
+
+![image](https://user-images.githubusercontent.com/107258443/175514443-a5f3f143-6f7b-4554-b528-b6bdac0a8b60.png)
+**Fig07c: Floorplan DEF in Magic layout window**
+
+![image](https://user-images.githubusercontent.com/107258443/175514234-64155dd4-ef64-4ce3-9bc8-df6737f69422.png)
+**Fig07d: I/O Pins in magic (zoomed view)**
  
 ### Placement
      Placement of standard cells takes place in this stage after floor planning. The synthesized netlist has been mapped to standard cells and floorplanning phase has determined the standard cells rows, enabling placement. 
           Multiple Optimizations: usign repeaters (based on wire length & cap etc)
           
-          Command: "run_placement"
-    <run image> 
-      <Output image>
+![image](https://user-images.githubusercontent.com/107258443/175515647-a3841170-11c2-4d6c-a431-b0883aeba05d.png)
+**Fig08: Placement completed**
+  
+![image](https://user-images.githubusercontent.com/107258443/175515889-c4344104-8d6c-40c8-b5a7-30b6b93fafdf.png)
+**Fig08a: Placement Results**
+
 #### Viewing Placement in Magic
-        <Image>
-          
+
+![image](https://user-images.githubusercontent.com/107258443/175516112-0017809a-47fd-48cb-8263-e80624148f25.png)
+**Fig08b: Magic Layout View**
+  
+![image](https://user-images.githubusercontent.com/107258443/175516432-8da63f5e-93d5-49be-85ea-68a97a49a967.png)
+**Fig08c: Zoomed Magic Layout View**
+  
 ### Standard Cell Characterization
 
 - Inputs - PDKs, DRC & LVS rules, SPICE models, library & user-defined specs.
 - Design Steps - Software GUNA used for characterization.
 - Outputs - Outputs are CDL, GDSII, LEF, extracted Spice netlist (.cir), & provide Timing (delays, slews), Power, Noise, function informataion in .lib format
 ==> .lib information is important for PD analysis.
-          
+
+
 ## Day 3
 
-          
-          
 ### Plotting spice w/f:
 To plot the output waveform of the spice deck we will use ngspice. The steps to run the simulation on ngpice are as follows:
 
@@ -134,8 +161,7 @@ To plot the output waveform of the spice deck we will use ngspice. The steps to 
 4. Select the simulation desired by entering the simulation name in the terminal
 5. Run: display to see nodes available for plotting
 6. Run: plot  vs  to obtain output waveform       
-          
-          
+ 
 Robustness of Inverter: Switching threshold (Vm) i.e. when Vin = Vout 
           ==>calculated using spice
           
@@ -153,11 +179,14 @@ Robustness of Inverter: Switching threshold (Vm) i.e. when Vin = Vout
    2. Load them in Magic to view:
     magic -T sky130A.tech sky130A_inverter.mag &
           
-    <image of Inverter>
+![image](https://user-images.githubusercontent.com/107258443/175517598-86c516de-199e-4a3a-aca3-9565549acf28.png)
+**Fig09: Inverter layout in Magic**
+
 #### Viewing metal connects in magic:
       Command: hover & press "S" multiple times.
-      <Image of connect>
-
+![image](https://user-images.githubusercontent.com/107258443/175517817-b111671d-effe-45e0-b820-98b92084dad7.png)
+**Fig09a: Gate connection of nmos & pmos**
+  
 ### DRC Errors
         
         
