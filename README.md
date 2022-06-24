@@ -13,6 +13,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 
 ## WorkFlow:
 ![image](https://user-images.githubusercontent.com/107258443/175244818-882577f4-60ac-4698-bddd-8aa0074ea9cf.png)
+fig01: Workflow
 
 ## Stages
 OpenLANE flow consists of several stages. 
@@ -41,29 +42,47 @@ OpenLANE flow consists of several stages.
 ## Day 1
 ### Skywater PDK files:
 1. Sky130A – The open-source compatible PDK files which are used in this project
-< PDK Image>
+![image](https://user-images.githubusercontent.com/107258443/175495536-5cb700b5-2039-48d7-a26e-b37adf9e0cb0.png)
+fig02: PDKs used
 
 ### Designs Available
 We are going to use picorv32a
-<Design folder image>
+![image](https://user-images.githubusercontent.com/107258443/175495764-b4a0e916-ae98-4bf3-b54c-cd152ec1ce4a.png)
+fig03: Design for analysis
   
 ### Docker & OpenLane
   1. run "docker" command to create required environment.
   2. execute ./flow.tcl -interactive to run the OpenLANE flow in interactive mode.
   3. import opemnlane package using "package require openlane" 
-  <Docker, OepnLane image with flow.tcl >
+  4. ![image](https://user-images.githubusercontent.com/107258443/175498800-09f00eef-4b79-425b-aa56-c4e7252c4318.png)
+fig04: Commands: docker & flow.tcl
 
 ### Prepare design Stage
     Command: "prep -design picorv32a"
     This creates requried directory structure. User must edit config.tcl for desired settings for different flows as per need of design & technology.
-    <Directory structure image>
+![image](https://user-images.githubusercontent.com/107258443/175499097-42603857-4e09-4977-822e-fc91e1886b73.png)
+fig05: Prep stage
+
+![image](https://user-images.githubusercontent.com/107258443/175499497-125382d9-b025-4c8e-b7db-95cbf87e072e.png)
+fig05a: Directory structure after prep stage
+
+![image](https://user-images.githubusercontent.com/107258443/175499672-38ba6db5-4838-4630-81b1-d13ded25a3ba.png)
+fig05b: Directory structure after prep stage
+
 
 ### Synthesis
       command: run_synthesis
       Reports: 
       1. 1-yosys_pre.stats shows different componenets count like reg, mem, combo counts per functionality.
       2. 1-sta.rpt has timing related data - transition time, clock instances etc.
-      
+![image](https://user-images.githubusercontent.com/107258443/175500991-bbc7bf3b-75c6-40df-be73-d07576b85c28.png)
+fig06: Command: run_synthesis
+
+![image](https://user-images.githubusercontent.com/107258443/175501519-463bc031-a6de-4980-9f82-ed75c6f496b0.png)
+fig06a: Reports: Cells used
+
+
+
 ## Day2
 ### Floorplanning
       Needs to set folllwoing:
