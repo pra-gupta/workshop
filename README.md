@@ -322,3 +322,29 @@ Fig12d: hold violated - Typical
 Fig12d: hold MET - Typical
   
 ## Day5
+###Routing
+Maze Routing:
+1. Connect source to Target
+2. Priority: L shape, Z shape, zigzag
+3. Rule of thumb: Try to have minimum number of bends in routing.
+
+Routing Rules: 
+1. Routing first happens on lower metal layers. Once its complete, it does upper layer routing. 
+Ex: First M1 routing happen & then M2
+2. Via creation happens only during upper layer routing (M2) & not during lower layer routing (M1)
+
+
+Processing Routing GUides:
+1. Initial route guides
+2. Splitting (if there are any horizontal guide), if tool is routing on vertical layer
+3. Merging
+4. Bridging
+5. Pre-processed route Guide.
+![image](https://user-images.githubusercontent.com/107258443/177988059-0da5ccb9-dc8f-4f93-bff0-546e58fe3455.png)
+
+
+
+###DRC:
+Exmaple: DRCviolation: signal short
+Solution: use different metal layers. (M1,M3)
+
