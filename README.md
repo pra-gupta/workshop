@@ -393,5 +393,12 @@ After routing has been completed interconnect parasitics can be extracted to per
 ![image](https://user-images.githubusercontent.com/107258443/178092556-cf0cd19b-eaa6-417f-99da-cb0acbbb63a6.png)
 Fig15e: Files generated after Routing (Final DEF, SPEF)
 
+### Multiple Netlists generated during full process:
+![image](https://user-images.githubusercontent.com/107258443/178092795-5d66c849-1515-488b-90f5-2e267141233e.png)
+Fig16: Multiple netlist generation: inital netlist, Post CTS netlist, Pre-route Netlist
+  
+## Conclusion
+PD Analysis is an iterative process & needs closure on timing, DRC violations(wherever applicable) etc after each step & check for results via reports, graphics etc.
+  
 ## Contact:
 Prateek GUpta: prateekgupta2100@gmail.com
