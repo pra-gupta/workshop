@@ -341,10 +341,57 @@ Processing Routing GUides:
 4. Bridging
 5. Pre-processed route Guide.
 ![image](https://user-images.githubusercontent.com/107258443/177988059-0da5ccb9-dc8f-4f93-bff0-546e58fe3455.png)
+Fig13: How routing tool process routing guides
 
 
-
-###DRC:
+### DRC:
 Exmaple: DRCviolation: signal short
 Solution: use different metal layers. (M1,M3)
 
+### PDN Generation:
+gen_pdn from CTS Def 
+![image](https://user-images.githubusercontent.com/107258443/178090714-e76ad628-a5f2-41a3-b45d-ab5a03ec6e39.png)
+Fig14: Power Delivery Network(PDN) generation
+
+![image](https://user-images.githubusercontent.com/107258443/178090940-0abff7b1-867b-4347-ae8c-6d903264673e.png)
+Fig14a: STD cell rails info considered by PDN tool
+
+Power flows from:
+1. Outside to Pads
+2. Pads to ring
+3. Ring to power straps
+4. Straps to STD cells
+
+![image](https://user-images.githubusercontent.com/107258443/178091232-fcaecbc1-d833-48c2-a212-2d52d81ef749.png)
+Fig14b: PDN Overall Diagram
+
+### Routing:
+
+![image](https://user-images.githubusercontent.com/107258443/178091778-b3f27b8d-1f1a-4f16-a94b-e926919367bb.png)
+Fig15: Routing Violations after 0th Optimizations
+
+![image](https://user-images.githubusercontent.com/107258443/178091971-dab6f522-6825-4663-b484-84ffe453d6fd.png)
+Fig15a: Reduced Routing Violations after 4th Optimizations
+
+![image](https://user-images.githubusercontent.com/107258443/178091952-92f76a87-467c-46f7-b9f4-9f09c32753b2.png)
+Fig15b: Routing Completed
+
+![image](https://user-images.githubusercontent.com/107258443/178092196-6c481b64-ab2a-493a-b15b-7b2e63e7f5ff.png)
+Fig15c: Routing Completed with "0" DRC violations
+
+![image](https://user-images.githubusercontent.com/107258443/178092389-8775655d-604b-42b2-8d8b-0646cfa8c9b9.png)
+Fig15d: Routing Details (0 DRC Violations)
+
+NOTE: If DRC errors persist after routing the user has two options:
+1. Re-run routing with higher QoR settings
+2. Manually fix DRC errors specific in tritonRoute.drc file
+
+
+### SPEF Extraction
+After routing has been completed interconnect parasitics can be extracted to perform sign-off post-route STA analysis. The parasitics are extracted into a SPEF file. The SPEF extractor is integrated within OpenLANE & SPEF will be generated automatically through the "routing" wrapper
+
+![image](https://user-images.githubusercontent.com/107258443/178092556-cf0cd19b-eaa6-417f-99da-cb0acbbb63a6.png)
+Fig15e: Files generated after Routing (Final DEF, SPEF)
+
+## Contact:
+Prateek GUpta: prateekgupta2100@gmail.com
