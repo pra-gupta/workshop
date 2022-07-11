@@ -374,7 +374,7 @@ Fig15: Routing Violations after 0th Optimizations
 Fig15a: Reduced Routing Violations after 4th Optimizations
 
 ![image](https://user-images.githubusercontent.com/107258443/178091952-92f76a87-467c-46f7-b9f4-9f09c32753b2.png)
-Fig15b: Routing Completed
+Fig15b: Routing Completed (With Timing met)
 
 ![image](https://user-images.githubusercontent.com/107258443/178092196-6c481b64-ab2a-493a-b15b-7b2e63e7f5ff.png)
 Fig15c: Routing Completed with "0" DRC violations
@@ -401,4 +401,4 @@ Fig16: Multiple netlist generation: inital netlist, Post CTS netlist, Pre-route 
 PD Analysis is an iterative process & needs closure on timing, DRC violations(wherever applicable) etc after each step & check for results via reports, graphics etc.
   
 ## Contact:
-Prateek GUpta: prateekgupta2100@gmail.com
+Prateek Gupta: prateekgupta2100@gmail.com
